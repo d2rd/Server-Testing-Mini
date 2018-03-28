@@ -8,40 +8,35 @@ const sinon = require('sinon');
 const server = require('./server');
 chai.use(chaihttp);
 
-const Band = require('./models/');
+const Band = require('./models');
 
-//POST test
 describe('Server', () => {
   describe('[POST] /band', () => {
-    const newBand = {
-      name: 'Doobe Brothers',
-      genre: 'Alt-Rock',
-    };
-    chai.request(server)
-      .post('/band')
-      .send(newBand)
-      .end((err, res) => {
-        if (err) console.error(err);
-        expect(res.status).to.equal(404);
-        expect(res.body.name.toequal('Doobe Brothers'));
-      })
-  })
-})
+    it('should add a new band', () => {
+      const newBand = {
+        name: 'Radiohead',
+        genre: 'Alt-Rock',
+      };
+      chai.request(server)
+        .post('/band')
+        .send(newBand)
+        .end((err, res) => {
+          if (err) console.error(err);
+          expect(res.status).to.equal(200);
+          expect(res.body.name).to.equal('Radiohead');
+        });
+    });
+  });
 
-//GET test
-describe('Server', () => {
-  describe('[POST] /band', () => {
-    const newBand = {
-      name: 'Doobe Brothers',
-      genre: 'Alt-Rock',
-    };
-    chai.request(server)
-      .post('/band')
-      .send(newBand)
-      .end((err, res) => {
-        if (err) console.error(err);
-        expect(res.status).to.equal(404);
-        expect(res.body.name.toequal('Doobe Brothers'));
-      })
-  })
-})
+  describe('[GET] /bands', () => {
+    it('should return `Hello World`', () => {
+      chai.request(server)
+        .get('/bands')
+        .end((err, res) => {
+          if (err) console.error(err);
+          expect(res.status).to.equal(200);
+          expect(res.body).to.equal('Hello World');
+        });
+    });
+  });
+});

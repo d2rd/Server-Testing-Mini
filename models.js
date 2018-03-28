@@ -6,17 +6,23 @@ const BandSchema = new Schema({
     required: true,
     type: String,
   },
-genere: {
-  required: true,
-  type: String,
-}
+  genre: {
+    required: true,
+    type: String,
+  }
 });
 
 BandSchema.methods.getBandName = function() {
   return this.name;
-};
+}
 
 BandSchema.statics.getAllBands = (cb) => {
-  Band.find({}, ())
-}
-module.exports = mongoose.model('Band', BandSchema);
+  Band.find({}, (err, bands) => {
+    if (err) console.error(err);
+    cb(bands);
+  });
+};
+
+const Band = mongoose.model('Band', BandSchema);
+
+module.exports = Band;

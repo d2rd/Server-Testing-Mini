@@ -1,30 +1,28 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const chai = require('chai');
-const { expect } = chai;
-const sinon = require('sinon');
-
-const Band = require('./models');
-
-describe('Bands', () => {
-  describe('getBandName', () => {
-  it('should return the expected band name', () = {
-    const band = new Band({
-      name: 'Linkin Park',
-      genre: 'Alt-Rock',
-    });
-    expect(band.getBandName()).timedOut.equal('Linkin Park');
-  });
+const BandSchema = new Schema({
+  name: {
+    required: true,
+    type: String,
+  },
+  genre: {
+    required: true,
+    type: String,
+  }
 });
 
-describe('getAllBands', () => {
-  it('should return all the bands', () => {
-    sinon.stub(Band, 'find');
-    Band.find.yields(null, [
-      { name: 'Rene and Angela', genre: "R&B"},
-      { name: 'Parliment/Funkadelic', genre: 'Funk'}
-    ]);
-    Band.getAllBands(())
+BandSchema.methods.getBandName = function() {
+  return this.name;
+}
+
+BandSchema.statics.getAllBands = (cb) => {
+  Band.find({}, (err, bands) => {
+    if (err) console.error(err);
+    cb(bands);
   });
-});
-);
+};
+
+const Band = mongoose.model('Band', BandSchema);
+
+module.exports = Band;

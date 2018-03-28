@@ -1,16 +1,19 @@
 {
-  "name": "Server-Testing-Mini",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/d2rd/Server-Testing-Mini.git",
-  "author": "Glenn-David Daniel <d2rd@outlook.com>",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "mocha": "^5.0.5",
-    "mongoose": "^5.0.12",
-    "morgan": "^1.9.0"
+  name: "server-testing-mini",
+  version: "1.0.0",
+  main: "index.js",
+  scripts: {
+  start: "nodemon index.js",
+  test: "mocha *.test.js"
+  },
+  license: "MIT",
+  dependencies: {
+  chai: "^4.1.2",
+  chai-http: "^4.0.0",
+  express: "^4.16.3",
+  mocha: "^5.0.5",
+  mongoose: "^5.0.12",
+  morgan: "^1.9.0",
+  sinon: "^4.4.10"
   }
-}
+  }
